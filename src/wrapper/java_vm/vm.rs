@@ -72,6 +72,14 @@ impl JavaVM {
         })
     }
 
+    /// Detaches the current thread from Java VM.
+    pub fn detach_current_thread(&self) -> Result<()> {
+        unsafe {
+            java_vm_unchecked!(self.0, DetachCurrentThread);
+            Ok(())
+        }
+    }
+
     /// Attaches the current thread to a Java VM as a daemon.
     pub fn attach_current_thread_as_daemon(&self) -> Result<JNIEnv> {
         let mut ptr = ptr::null_mut();
